@@ -1,20 +1,19 @@
-<div class="row submission_container title-div">
-	<div class="col-md-3">
-		Graded By
+	<div class="row title-div">
+		<div class="col-md-3">
+			Graded By
+		</div>
+		<div class="col-md-3">
+			Score
+		</div>
+		<div class="col-md-3">
+			Actions
+		</div>
+		<div class="col-md-3">
+			Submitted
+		</div>
 	</div>
-	<div class="col-md-3">
-		Score
-	</div>
-	<div class="col-md-3">
-		Actions
-	</div>
-	<div class="col-md-3">
-		Submitted
-	</div>
-</div>
-
-<% submissions.each do |submission| %>
-	<div class="row submission_container">
+<% results.each do |submission| %>
+	<div class="row submission_container" style='background-color: <%= submission.color_code %>'>
 		<div class="col-md-3">
 			<%= submission.proctor %>
 		</div>
@@ -22,7 +21,7 @@
 			<%= submission.score.to_i %>
 		</div>
 		<div class="col-md-3">
-			<a href="<%= view_submission_student_homework_path(:student_id => current_user.id, :id => submission.id)%>" class='view_submission' data-id='<% submission.id %>'>view submission</a>
+			<a href="<%= student_submission_path(:student_id => current_user.id, :id => submission.id)%>" class='view_submission' data-id='<% submission.id %>'>view submission</a>
 		</div>
 		<div class="col-md-3">
 			<%= submission.created_at.try(:strftime,"%Y-%m-%d") %>

@@ -3,7 +3,9 @@
     Login
   <% end %>
 <% end %>
-
+<% if flash[:error] %>
+  <div id="error_report" style="display: block;"><%= flash[:error] %></div>
+<% end %>
 <% if current_user.nil? %>
   <%= form_for 'login', url: session_url, html: {id: 'login_form'} do |user|%>
     <div id="status"></div>
@@ -21,7 +23,6 @@
       </div>
     </div>
 
-    <div id="error_report"></div>
     <button type="submit" class="btn btn-primary">Log In</button>
   <% end %>
 <% end %>

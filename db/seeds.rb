@@ -1,25 +1,34 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-# FactoryGirl.create(:teacher, username: 'teacher')
-# FactoryGirl.create(:student, username: 'student')
-require 'faker'
+# require 'faker'
+
+# 10.times do 
+# 	user = User.new(role: "teacher", username: Faker::Simpsons.character)
+# 	if !user.save
+# 		puts user.errors.messages
+# 		next
+# 	end
+# end
+
+# 100.times do
+# 	user = User.new(role: "student", username: Faker::HarryPotter.character)
+# 	if !user.save
+# 		puts user.errors.messages
+# 		next
+# 	end
+# end
+
+# teach_ids = User.teachers.map { |e| e.id }
+# student_ids = User.students.map { |e| e.id }
 
 # 20.times do 
 # 	hw = Homework.create(user_id: 2, title: Faker::Hipster.sentence , content: Faker::Hipster.sentence(3))
-# 	HomeworkAssignment.create(user_id: 1, homework_id: hw.id)
-# 	HomeworkAssignment.create(user_id: 3, homework_id: hw.id)
+# 	student_ids.shuffle.first(10).each do |st_id|
+# 		hwa = HomeworkAssignment.create(user_id: st_id, homework_id: hw.id)
+# 		howmany = rand (20)
+# 		hwa.due_date = Faker::Date.between(60.days.ago, 1.year.from_now)
+# 		hwa.save
+# 		howmany.times do 
+# 			submission = Submission.create(:homework_assignment_id => hwa.id, :score => rand(100), :scorer_id => teach_ids.sample, :content => Faker::Hacker.say_something_smart)
+# 		end
+# 	end
 # end
 
-HomeworkAssignment.all.each do |hw|
-	howmany = rand (20)
-	hw.due_date = Faker::Date.between(60.days.ago, 1.year.from_now)
-	hw.save
-	howmany.times do 
-		submission = Submission.create(:homework_assignment_id => hw.id, :score => rand(100), :scorer_id => 2, :content => Faker::Hacker.say_something_smart)
-	end
-end

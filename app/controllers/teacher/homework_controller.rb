@@ -1,6 +1,6 @@
-class Teacher::HomeworkController < ApplicationController
-	layout 'teacher_layout'
-	before_action :authorize, :set_teacher
+class Teacher::HomeworkController < TeacherController
+	
+	before_action :set_homework, :except => [:index, :new, :create, :grab, :view_submission,:grade_submission]
 
 	def index
 		if params[:page]
@@ -10,53 +10,44 @@ class Teacher::HomeworkController < ApplicationController
 		end
 	end
 
-	def show
+	def create
+		homework = Homework.new(homework_params)
+		homework.user_id = @teacher.id
+		if homework.save
+			redirect_to teacher_homework_path(:teacher_id => @teacher.id, :id => homework.id)
+		else
+			populate_errors(homework.errors.full_messages)
+			redirect_to :back
+		end
+	end
+
+	def update
+		@homework.assign_attributes(homework_params)
+		if @homework.save
+			redirect_to teacher_homework_path(:teacher_id => @teacher.id, :id => @homework.id)
+		else
+			populate_errors(@homework.errors.full_messages)
+			redirect_to :back
+		end
+	end
+
+	private
+	
+	def grade_params
+		params.require(:submission).permit(:feedback,:score)
+	end
+
+	def homework_params
+		params.require(:homework).permit(:title,:content)
+	end
+
+	def assignment_params
+		params.require(:assignment).permit(:user_id,:homework_id,:due_date)
+	end
+
+	def set_homework
 		@homework = current_user.homeworks.find(params[:id])
 	end
 
-	def view_assignment
-		@homework_assignment = HomeworkAssignment.find(params[:id])
-		@homework = current_user.homeworks.find(@homework_assignment.homework.id)
-		if !current_user.homeworks.include?(@homework_assignment.homework.id)
-      # redirect_to login_url
-		end
-	end
 
-	def view_submission
-		@submission = Submission.find(params[:id])
-		@homework = @submission.homework
-		
-	end
-
-	def grade_submission
-		@submission = Submission.find(params[:id])
-		@homework_assignment = @submission.homework_assignment
-		@homework = @homework_assignment.homework
-
-		# the person that is grading has to have assigned the homework, and be the owner of the homework
-		if current_user.id == @homework.user_id
-			@submission.update_attributes(grade_params)
-			@submission.scorer_id = current_user.id
-			@submission.save
-		end
-
-		flash[:update] = 'Grade updated'
-
-		redirect_to :back
-		
-	end
-
-
-	protected
-	
-	def grade_params
-		params.require(:grade).permit(:feedback,:score)
-	end
-
-	def set_teacher
-		 if not current_user.teacher?
-      redirect_to login_url
-    end
-		@teacher = current_user
-	end
 end

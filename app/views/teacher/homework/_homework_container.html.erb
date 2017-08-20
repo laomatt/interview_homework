@@ -1,5 +1,5 @@
-	<div class="container">
-		<div class="row hw_container">
+	<div class="container hw_container" style='background-color: <%= hw.high_score_color %>'>
+		<div class="row hw_container" style='background-color: <%= hw.high_score_color %>'>
 			<div class="col-md-3">
 				<%= hw.title %>
 			</div>
@@ -8,12 +8,10 @@
 			<div class="col-md-3">
 			</div>
 			<div class="col-md-3">
-				<a href="#" class='sub-drop-down btn btn-primary btn-sm' data-id="<%=hw.id%>">view assignments</a>
+				<a href="#" class='sub-drop-down btn btn-primary btn-sm' model='HomeworkAssignment' data-target='submission_box' field="homework_id" field_id='<%= hw.id %>' grab_point='<%= grab_teacher_index_path %>' partial='teacher/homework/assignments_container' data-id="<%=hw.id%>">view assignments</a>
 				<a href="<%= teacher_homework_path(:id => hw.id, :teacher_id => current_user.id) %>" class='btn btn-primary btn-sm'>view </a>
 			</div>
 		</div>
-		<div class="submission_box" id='submission_box<%= hw.id %>'>
-			<%= render :partial => 'assignments_container', :locals => { :assignments => hw.homework_assignments } %>
-
+		<div class="submission_box submission_box<%= hw.id %>" id='submission_box<%= hw.id %>'>
 		</div>
 	</div>

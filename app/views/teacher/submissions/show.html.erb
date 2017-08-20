@@ -1,0 +1,38 @@
+<h1><%= @homework.title %></h1>
+<p class='hw_header'>Question:</p>
+<p class='hw_content'><%= @homework.content %></p>
+
+<p class='hw_header'>Answer:</p>
+<p class='hw_content'><%= @submission.content %></p>
+
+<div class="score-box">
+	<h2>Grade or update your feedback and score</h2>
+	<%= form_for @submission,method: 'PUT', url: teacher_submission_path(:teacher_id => current_user.id, :id => @submission.id), html: {id: 'submission_form'} do |submission|%>
+	<%= submission.label :feedback, 'Feedback' %>
+	<%= submission.text_area :feedback, class: 'form-control', placeholder: 'Provide feedback...' %>
+	<%= submission.label :score, 'Score' %>
+	<%= submission.number_field :score, class: 'form-control', placeholder: 'Score...' %>
+	<br>
+	<%= submission.hidden_field :submission_id, value: @submission.id %>
+	
+	<% if flash[:error] %>
+		<div id="error_report" style="display: block;"><%= flash[:error] %></div>
+	<% end %>
+
+	<% if flash[:update] %>
+		<div id="status" style="display: block;"><%= flash[:update] %></div>
+	<% end %>
+
+	<button type="submit" class="btn btn-primary">Submit</button>
+	<% end %>
+</div>
+
+<div class="score-box">
+	<div class='score' style='background-color: <%= @submission.color_code %>'>
+		<b>score:</b>
+		<%= @submission.score %>
+	</div>
+	<div class='feedback' style='background-color: <%= @submission.color_code %>'>
+		<%= @submission.feedback %>
+	</div>
+</div>

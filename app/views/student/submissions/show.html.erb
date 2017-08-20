@@ -1,0 +1,19 @@
+<h1><%= @homework.title %></h1>
+<p class='hw_header'>Question:</p>
+<p class='hw_content'><%= @homework.content %></p>
+
+<p class='hw_header'>Answer:</p>
+<p class='hw_content'><%= @submission.content %></p>
+
+<div class="score-box">
+
+	<div class='score' style='background-color: <%= @submission.color_code %>'>
+		<b>score:</b>
+		<%= @submission.score %>
+	</div>
+
+	<div class='feedback' style='background-color: <%= @submission.color_code %>'>
+		<%= @submission.feedback %>
+	</div>
+
+</div>

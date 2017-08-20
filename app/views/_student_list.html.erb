@@ -1,0 +1,7 @@
+<input type="search" name="search" class="search_box form-control" limit="10" model="user" type='students' partial="/student_results" homework="<%= homework.id %>" field="username" placeholder="start typing students name...">
+<%= label :due_date, 'Due Date'%>
+<input type="date" name="due_date" id="due_date" class='form-control'>
+<hr>
+<div id="error_report"></div>
+<div class="results">
+</div>

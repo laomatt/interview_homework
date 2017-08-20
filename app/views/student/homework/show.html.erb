@@ -1,26 +1,29 @@
 <h1><%= @homework.title %></h1>
 
-<p>
+<p class='hw_content'>
 	<%= @homework.content %>
 </p>
+<% if @homework_assignment.past_due? %>
+	<p class='hw_content'>THIS ASSIGNMENT IS PAST DUE</p>
+<% else %>
+	<%= form_for 'submission', url: student_submissions_path(:student_id => current_user.id), html: {id: 'submission_form'} do |submission|%>
+		<%= submission.text_area :content, class: 'form-control', placeholder: 'Answer...' %>
+		<%= submission.hidden_field :homework_assignment_id, class: 'form-control', placeholder: 'Answer...', value: @homework_assignment.id %>
+		
+		<% if flash[:error] %>
+			<div id="error_report" style="display: block;"><%= flash[:error] %></div>
+		<% end %>
 
-<%= form_for 'submission', url: create_submission_student_homework_path(:student_id => current_user.id, :id => @homework_assignment.id), html: {id: 'submission_form'} do |submission|%>
-	<%= submission.text_area :content, class: 'form-control', placeholder: 'Answer...' %>
-	<%= submission.hidden_field :homework_assignment_id, class: 'form-control', placeholder: 'Answer...', value: @homework_assignment.id %>
-	
-	<% if flash[:error] %>
-		<div id="error_report" style="display: block;"><%= flash[:error] %></div>
+		<% if flash[:update] %>
+			<div id="status" style="display: block;"><%= flash[:update] %></div>
+		<% end %>
+
+		<button type="submit" class="btn btn-primary">Submit</button>
 	<% end %>
 
-	<% if flash[:update] %>
-		<div id="status" style="display: block;"><%= flash[:update] %></div>
-	<% end %>
-
-	<button type="submit" class="btn btn-primary">Submit</button>
 <% end %>
-
 <h3>Your previous Sumissions</h3>
 
 <div class="submission_container">
-	<%= render :partial => 'submission_container', :locals => { :submissions => @homework_assignment.submissions.select{|e| e.user_id == current_user.id} } %>
+	<%= render :partial => 'submission_container', :locals => { :results => @homework_assignment.submissions.select{|e| e.user_id == current_user.id} } %>
 </div>

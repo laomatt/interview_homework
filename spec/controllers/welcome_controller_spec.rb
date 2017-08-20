@@ -1,4 +1,7 @@
 require 'rails_helper'
+require 'database_cleaner'
+require 'byebug'
+DatabaseCleaner.strategy = :truncation
 
 RSpec.describe WelcomeController, type: :controller do
   let(:teacher) {FactoryGirl.create(:teacher)}
@@ -10,10 +13,13 @@ RSpec.describe WelcomeController, type: :controller do
       expect(response).to redirect_to login_url
     end
 
-    it "returns http success if user is logged in" do
+    it "redirects user if they are logged in and get to the welcome index" do
       get :index, {}, valid_session
-      expect(response).to have_http_status(:success)
+      expect(response.redirect?).to be true
     end
   end
 
+  after(:each) do 
+    DatabaseCleaner.clean
+  end
 end

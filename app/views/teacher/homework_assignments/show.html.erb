@@ -11,5 +11,5 @@
 <h3>Submissions</h3>
 
 <div class="submission_container">
-	<%= render :partial => 'submission_container', :locals => { :submissions => @homework_assignment.submissions } %>
+	<%= render :partial => '/teacher/homework/submission_container', :locals => { :results => @homework_assignment.submissions } %>
 </div>

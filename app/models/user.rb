@@ -9,11 +9,30 @@ class User < ActiveRecord::Base
 
   has_many :submissions, :through => :homework_assignments
 
+  def self.teachers
+    select { |e| e.teacher? }  
+  end
+
+  def self.students
+    select { |e| e.student? }  
+  end
+
   def teacher?
   	role == 'teacher'
   end
 
-   def student?
+  def student?
   	role == 'student'
+  end
+
+  def assign_button(homework_id)
+    if teacher?
+      "N/A"
+    elsif homework_assignments.map { |e| e.homework_id }.include?(homework_id.to_i)
+      "Assigned"
+    else
+      "Assign"  
+    end
+    
   end
 end

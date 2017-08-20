@@ -13,9 +13,9 @@
  *= require_tree .
  *= require_self
  */
-@import "bootstrap-sprockets";
-@import "bootstrap";
-%report_module {
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+ %report_module {
     color: white;
     padding: 2%;
     margin-bottom: 10px;
@@ -25,17 +25,94 @@
     display: none;
 }
 
+%list_module {
+    padding: 2px;
+    margin-bottom: 1px;
+    font-size: 12px;
+}
+
 #error_report {
-		@extend %report_module;
-		background-color: red;
+  @extend %report_module;
+  background-color: red;
 }
 
 #status {
-		@extend %report_module;
-		background-color: #aeffae;
-		color: black;
+    @extend %report_module;
+    background-color: #aeffae;
+    color: black;
 }
 
 .radio-grp {
-	margin-left: 20%;
+    margin-left: 20%;
+}
+
+.student_item {
+    @extend %list_module;
+    background-color: #f7ffe7;
+    padding-left: 10px;
+}
+
+.nav-style {
+    margin-right: 10px;
+}
+
+.logout-button {
+    float: right;
+}
+
+.submission_box {
+    background-color: transparent;
+    padding: 5px;
+}
+
+.other_box {
+    background-color: #f7f7ff;
+    width: 85%;
+    float: center;
+    margin: 0 auto;
+}
+
+%module_display {
+    background-color: #feffcc;
+    padding: 3%;
+    border-radius: 10px;
+    margin-bottom: 3px;
+
+
+}
+
+.hw_content {
+    @extend %module_display;
+    font-size: 15px;
+    width: 80%;
+}
+
+.hw_header {
+    @extend %module_display;
+    width: 25%;
+    font-weight: bold;
+    font-size: 20px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+
+}
+
+.score-box {
+    @extend %report_module;
+    display: block;
+    color: black;
+    width: 80%;
+}
+
+.score {
+    @extend %module_display;
+    width: 50%;
+    font-size: 40px;
+}
+
+.feedback{
+    @extend %module_display;
+    background-color: #ffc5c5;
+    width: 50%;
+    font-size: 40px;
 }

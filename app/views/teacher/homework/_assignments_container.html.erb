@@ -1,30 +1,35 @@
-<div class="row submission_container title-div">
-	<div class="col-md-3">
-		Assignee
+<div class="sub_container">
+	<div class="row title-div">
+		<div class="col-md-3">
+			Assignee
+		</div>
+		<div class="col-md-3">
+			Submissions
+		</div>
+		<div class="col-md-3">
+			Actions
+		</div>
+		<div class="col-md-3">
+			Due
+		</div>
 	</div>
-	<div class="col-md-3">
-		Score
-	</div>
-	<div class="col-md-3">
-		Actions
-	</div>
-	<div class="col-md-3">
-		Due
-	</div>
-</div>
 
-<% assignments.each do |assignment| %>
-	<div class="row submission_container">
-		<div class="col-md-3">
-			<%= assignment.user.username %>
+	<% results.each do |assignment| %>
+		<div class="row submission_container">
+			<div class="col-md-3">
+				<%= assignment.user.try(:username) %>
+			</div>
+			<div class="col-md-3">
+				<a href="#" class='sub-drop-down' model='Submission' data-target='other_box' grab_point='<%= grab_teacher_index_path %>' field='homework_assignment_id' field_id='<%= assignment.id %>' partial='teacher/homework/submission_container' locals_from='assignment_partial' data-id="<%=assignment.id%>">View Submissions</a>
+			</div>
+			<div class="col-md-3">
+				<a href="<%= teacher_homework_assignment_path(:teacher_id => current_user.id, :id => assignment.id)%>" class='view_submission' data-id='<% assignment.id %>'>view assignment</a>
+			</div>
+			<div class="col-md-3">
+				<%= assignment.due_date.try(:strftime,"%Y-%m-%d") %>
+			</div>
 		</div>
-		<div class="col-md-3">
+		<div class="submission_box other_box other_box<%= assignment.id %>" id='other_box<%= assignment.id %>'>
 		</div>
-		<div class="col-md-3">
-			<a href="<%= view_assignment_teacher_homework_path(:teacher_id => current_user.id, :id => assignment.id)%>" class='view_submission' data-id='<% assignment.id %>'>view assignment</a>
-		</div>
-		<div class="col-md-3">
-			<%= assignment.due_date.try(:strftime,"%Y-%m-%d") %>
-		</div>
+	<% end %>
 	</div>
-<% end %>

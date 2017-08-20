@@ -1,31 +1,35 @@
-<div class="row submission_container title-div">
-	<div class="col-md-3">
-		Student
+<% if results.count == 0 %>
+	--------------- No current submissions. ---------------
+<% else %>
+	<div class="row submission_container title-div">
+		<div class="col-md-3">
+			Student
+		</div>
+		<div class="col-md-3">
+			Score
+		</div>
+		<div class="col-md-3">
+			Actions
+		</div>
+		<div class="col-md-3">
+			Submitted
+		</div>
 	</div>
-	<div class="col-md-3">
-		Score
-	</div>
-	<div class="col-md-3">
-		Actions
-	</div>
-	<div class="col-md-3">
-		Submitted
-	</div>
-</div>
 
-<% submissions.each do |submission| %>
-	<div class="row submission_container">
-		<div class="col-md-3">
-			<%= submission.user.try(:username) %>
+	<% results.each do |submission| %>
+		<div class="row submission_container">
+			<div class="col-md-3">
+					<%= submission.user.try(:username) %>
+			</div>
+			<div class="col-md-3">
+				<%= submission.score.to_i %>
+			</div>
+			<div class="col-md-3">
+				<a href="<%= teacher_submission_path(:teacher_id => current_user.id, :id => submission.id)%>" class='view_submission' data-id='<% submission.id %>'>view submission</a>
+			</div>
+			<div class="col-md-3">
+				<%= submission.created_at.try(:strftime,"%Y-%m-%d") %>
+			</div>
 		</div>
-		<div class="col-md-3">
-			<%= submission.score.to_i %>
-		</div>
-		<div class="col-md-3">
-			<a href="<%= view_submission_teacher_homework_path(:teacher_id => current_user.id, :id => submission.id)%>" class='view_submission' data-id='<% submission.id %>'>view submission</a>
-		</div>
-		<div class="col-md-3">
-			<%= submission.created_at.try(:strftime,"%Y-%m-%d") %>
-		</div>
-	</div>
+	<% end %>
 <% end %>

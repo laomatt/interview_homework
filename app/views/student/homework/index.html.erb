@@ -3,27 +3,27 @@
     Homework Assignments for <%= current_user.username %>
   <% end %>
 <% end %>
+<input type="search" name="search" class="search_box form-control" limit="10" model="homework_assignment" join="homework" type='' partial="/student/homework/homework_container_wrapper" user_scope="current_user" field="title" placeholder="start typing homework title...">
 
-<p class="lead"></p>
-
-<div class="row title-div">
-		<div class="col-md-3">
-			Assignment
+<div class="results">
+	<div class="row title-div">
+			<div class="col-md-3">
+				Assignment
+			</div>
+			<div class="col-md-3">
+				High Score
+			</div>
+			<div class="col-md-3">
+				Due Date
+			</div>
+			<div class="col-md-3">
+				Actions
+			</div>
 		</div>
-		<div class="col-md-3">
-			High Score
-		</div>
-		<div class="col-md-3">
-			Actions
-		</div>
-		<div class="col-md-3">
-			Submitted
-		</div>
-	</div>
-</div>
 <% @homeworks.each do |hw| %>
 	<%= render :partial => 'homework_container', :locals => { :hw => hw } %>
 <% end %>
+</div>
 <center>
 <%= will_paginate @homeworks %>
 </center>

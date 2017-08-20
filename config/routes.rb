@@ -10,27 +10,26 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#new', as: 'login'
   post 'login', to: 'sessions#create', as: 'session'
   match 'logout', to: 'sessions#destroy', as: 'logout', via: [:get, :delete]
+  get 'search', to: 'application#search'
 
   resources :student do 
+    collection do 
+      get 'grab'
+    end
     scope module: :student do 
-      resources :homework do
-        member do 
-          get 'view_submission'
-          post 'create_submission'
-        end
-      end
+      resources :submissions
+      resources :homework
     end
   end
 
   resources :teacher do 
+     collection do 
+      get 'grab'
+    end
     scope module: :teacher do 
-      resources :homework do
-         member do 
-          get 'view_submission'
-          get 'view_assignment'
-          put 'grade_submission'
-        end
-      end
+      resources :homework_assignments
+      resources :submissions
+      resources :homework
     end
   end
   # Example of regular route:

@@ -1,4 +1,4 @@
-$(document).ready ->
+$(document).on 'turbolinks:load',->
 	$('#login_form').on 'submit',(event) -> 
 			event.preventDefault()
 			$.ajax $(this).attr('action'),
@@ -21,4 +21,4 @@ $(document).ready ->
 						html += '</ul>'
 						$('#error_report').html(html)
 						false
-					
+		return undefined			

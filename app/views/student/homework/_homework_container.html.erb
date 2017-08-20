@@ -1,5 +1,5 @@
-	<div class="container">
-		<div class="row hw_container">
+	<div class="container hw_container" style='background-color: <%= hw.high_score_color %>'>
+		<div class="row hw_container" style='background-color: <%= hw.high_score_color %>'>
 			<div class="col-md-3">
 				<%= hw.homework.title %>
 			</div>
@@ -8,14 +8,13 @@
 			</div>
 			<div class="col-md-3">
 				<%= hw.due_date.try(:strftime,"%Y-%m-%d") || 'No Due Date' %>
+				<%= hw.past_due? ? '*overdue' : '' %>
 			</div>
 			<div class="col-md-3">
-				<a href="#" class='sub-drop-down btn btn-primary btn-sm' data-id="<%=hw.id%>">view submissions</a>
+				<a href="#" class='sub-drop-down btn btn-primary btn-sm' model='Submission' data-target='other_box' grab_point='<%= grab_student_index_path %>' field='homework_assignment_id' field_id='<%= hw.id %>' partial='student/homework/submission_container' locals_from='assignment_partial' data-id="<%=hw.id%>">View Submissions</a>
 				<a href="/student/<%= current_user.id %>/homework/<%= hw.id %>" class='btn btn-primary btn-sm'>view assignment</a>
 			</div>
 		</div>
-		<div class="submission_box" id='submission_box<%= hw.id %>'>
-			<%= render :partial => 'submission_container', :locals => { :submissions => hw.submissions } %>
-
+		<div class="submission_box other_box<%= hw.id %>" id='submission_box<%= hw.id %>'>
 		</div>
 	</div>

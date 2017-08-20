@@ -17,10 +17,12 @@
         <span class="icon-bar"></span>
       </button>
       <%= link_to "Homework", student_homework_index_path(:student_id => current_user.id), class: 'navbar-brand' %>
+      <%= link_to "Submissions", student_submissions_path(:student_id => current_user.id), class: 'navbar-brand' %>
     </div>
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse logout-button">
       <ul class="nav navbar-nav">
         <% if current_user %>
+          <li>Logged in as  <%= @student.username %></li>
           <li>
             <%= link_to "Logout", logout_url %>
           </li>

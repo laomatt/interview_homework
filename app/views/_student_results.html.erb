@@ -1,0 +1,16 @@
+<% results.first(limit.to_i).each do |user| %>
+	<% next if user.teacher? %>
+	<div class="row student_item">
+		<div class="col-sm-3"><%= user.username %></div>
+		<div class="col-sm-3"></div>
+		<div class="col-sm-3">
+			<% if extras[:homework] %>
+				<% if user.assign_button(extras[:homework]) == 'Assign' %>
+					<a href='<%= teacher_homework_assignments_path(:teacher_id => current_user.id, :id => extras[:homework]) %>' class='btn btn-md btn-primary assign_button' homework_id='<%= extras[:homework] %>' user_id='<%= user.id %>'><%= user.assign_button(extras[:homework]) %></a>
+				<% else %>
+					<a class='btn btn-md btn-primary disabled'><%= user.assign_button(extras[:homework]) %></a>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+<% end %>
