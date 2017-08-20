@@ -11,6 +11,28 @@ Rails.application.routes.draw do
   post 'login', to: 'sessions#create', as: 'session'
   match 'logout', to: 'sessions#destroy', as: 'logout', via: [:get, :delete]
 
+  resources :student do 
+    scope module: :student do 
+      resources :homework do
+        member do 
+          get 'view_submission'
+          post 'create_submission'
+        end
+      end
+    end
+  end
+
+  resources :teacher do 
+    scope module: :teacher do 
+      resources :homework do
+         member do 
+          get 'view_submission'
+          get 'view_assignment'
+          put 'grade_submission'
+        end
+      end
+    end
+  end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
@@ -32,7 +54,7 @@ Rails.application.routes.draw do
   #     end
   #   end
 
-  # Example resource route with sub-resources:
+# Example resource route with sub-resources:
   #   resources :products do
   #     resources :comments, :sales
   #     resource :seller

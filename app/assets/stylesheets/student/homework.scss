@@ -1,0 +1,38 @@
+// Place all the styles related to the student/homework controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "bootstrap-sprockets";
+@import "bootstrap";
+%hw_module {
+    color: black;
+    padding: 2%;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: #fdffeb;
+}
+
+.hw_container {
+	@extend %hw_module;
+
+}
+
+.overdue_hw {
+	@extend %hw_module;
+	background-color: red;
+}
+
+.submission_box {
+	display: none;
+}
+
+.submission_container {
+	background-color: transparent;
+}
+
+.title-div {
+    font-weight: bold;
+    background-color: #fbffd3;
+    padding: 3px;    
+}

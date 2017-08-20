@@ -1,0 +1,10 @@
+<h1><%= @homework.title %></h1>
+
+<p>
+	<%= @homework.content %>
+</p>
+
+<h3>Current Submissions</h3>
+<div class="submission_container">
+	<%= render :partial => 'submission_container', :locals => { :submissions => @homework.submissions } %>
+</div>

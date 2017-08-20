@@ -16,13 +16,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <% if current_user %>
-        <% if current_user.teacher? %>
-          <%= link_to "Homework", teacher_homework_index_path(:teacher_id => current_user.id), class: 'navbar-brand' %>
-        <% else %>
-          <%= link_to "Homework", student_homework_index_path(:student_id => current_user.id), class: 'navbar-brand' %>
-        <% end %>
-      <% end %>
+      <%= link_to "Homework", student_homework_index_path(:student_id => current_user.id), class: 'navbar-brand' %>
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">

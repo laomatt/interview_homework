@@ -4,9 +4,24 @@
   <% end %>
 <% end %>
 
-<%= form_tag session_url do %>
-  <div class="form-group form-group-lg">
-    <%= text_field_tag :username, '', class: 'form-control', placeholder: 'Username' %>
-  </div>
-  <button type="submit" class="btn btn-primary">Log In</button>
+<% if current_user.nil? %>
+  <%= form_for 'login', url: session_url, html: {id: 'login_form'} do |user|%>
+    <div id="status"></div>
+    <div class="form-group form-group-lg">
+      <%= user.text_field :username, class: 'form-control', placeholder: 'Username' %>
+    </div>
+    <div class="form-group form-group-lg radio-grp">
+      <div class="radio">
+        <%= user.radio_button(:role, "student") %>
+        <%= user.label(:role_student, "Student") %>
+      </div>
+      <div class="radio">
+        <%= user.radio_button(:role, "teacher") %>
+        <%= user.label(:role_teacher, "Teacher") %>
+      </div>
+    </div>
+
+    <div id="error_report"></div>
+    <button type="submit" class="btn btn-primary">Log In</button>
+  <% end %>
 <% end %>

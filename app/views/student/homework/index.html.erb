@@ -1,0 +1,29 @@
+<%= content_tag :div, class: 'page-header' do %>
+  <%= content_tag :h1 do %>
+    Homework Assignments for <%= current_user.username %>
+  <% end %>
+<% end %>
+
+<p class="lead"></p>
+
+<div class="row title-div">
+		<div class="col-md-3">
+			Assignment
+		</div>
+		<div class="col-md-3">
+			High Score
+		</div>
+		<div class="col-md-3">
+			Actions
+		</div>
+		<div class="col-md-3">
+			Submitted
+		</div>
+	</div>
+</div>
+<% @homeworks.each do |hw| %>
+	<%= render :partial => 'homework_container', :locals => { :hw => hw } %>
+<% end %>
+<center>
+<%= will_paginate @homeworks %>
+</center>

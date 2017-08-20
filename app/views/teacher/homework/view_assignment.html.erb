@@ -1,0 +1,15 @@
+<h1><%= @homework.title %></h1>
+<p>
+	Assigned to: <%= @homework_assignment.user.username %>
+</p>
+<p>
+	<%= @homework.content %>
+</p>
+
+
+
+<h3>Submissions</h3>
+
+<div class="submission_container">
+	<%= render :partial => 'submission_container', :locals => { :submissions => @homework_assignment.submissions } %>
+</div>

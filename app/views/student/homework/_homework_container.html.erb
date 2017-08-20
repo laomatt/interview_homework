@@ -1,0 +1,21 @@
+	<div class="container">
+		<div class="row hw_container">
+			<div class="col-md-3">
+				<%= hw.homework.title %>
+			</div>
+			<div class="col-md-3">
+				<%= hw.submissions.select{|e| e.score }.sort_by {|e| e.score}.last.try(:score) %>
+			</div>
+			<div class="col-md-3">
+				<%= hw.due_date.try(:strftime,"%Y-%m-%d") || 'No Due Date' %>
+			</div>
+			<div class="col-md-3">
+				<a href="#" class='sub-drop-down btn btn-primary btn-sm' data-id="<%=hw.id%>">view submissions</a>
+				<a href="/student/<%= current_user.id %>/homework/<%= hw.id %>" class='btn btn-primary btn-sm'>view assignment</a>
+			</div>
+		</div>
+		<div class="submission_box" id='submission_box<%= hw.id %>'>
+			<%= render :partial => 'submission_container', :locals => { :submissions => hw.submissions } %>
+
+		</div>
+	</div>

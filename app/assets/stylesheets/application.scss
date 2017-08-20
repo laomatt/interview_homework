@@ -15,3 +15,27 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+%report_module {
+    color: white;
+    padding: 2%;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 10px;
+    display: none;
+}
+
+#error_report {
+		@extend %report_module;
+		background-color: red;
+}
+
+#status {
+		@extend %report_module;
+		background-color: #aeffae;
+		color: black;
+}
+
+.radio-grp {
+	margin-left: 20%;
+}
