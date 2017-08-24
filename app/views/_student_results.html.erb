@@ -1,3 +1,7 @@
+<% if flash[:error] %>
+	<div class="error_report update-box-sub" style="display: block;background-color: red;color: white;"><%= flash[:error] %></div>
+<% end %>
+
 <% results.first(limit.to_i).each do |user| %>
 	<% next if user.teacher? %>
 	<div class="row student_item">

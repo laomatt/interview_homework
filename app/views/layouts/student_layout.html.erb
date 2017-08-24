@@ -18,6 +18,15 @@
       </button>
       <%= link_to "Homework", student_homework_index_path(:student_id => current_user.id), class: 'navbar-brand' %>
       <%= link_to "Submissions", student_submissions_path(:student_id => current_user.id), class: 'navbar-brand' %>
+      <div class="update-box">
+          <% if flash[:error] %>
+            <div id="error_report" class='update-box-sub' style="display: block;"><%= flash[:error] %></div>
+          <% end %>
+
+          <% if flash[:update] %>
+            <div id="status" class='update-box-sub' style="display: block;"><%= flash[:update] %></div>
+          <% end %>
+      </div>
     </div>
     <div class="collapse navbar-collapse logout-button">
       <ul class="nav navbar-nav">

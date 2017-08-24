@@ -30,12 +30,13 @@ RSpec.describe Student::SubmissionsController, type: :controller do
     	content: "What much does the Hulk weigh?"
     	)
 
-    @homework_assignment_overdue = FactoryGirl.create(
+    @homework_assignment_overdue = FactoryGirl.build(
     	:homework_assignment, 
     	user_id: @student.id, 
     	homework_id: @homework2.id, 
     	due_date: Date.today - 7
     	)
+    @homework_assignment_overdue.skip_date_validation = true
 
     @homework_assignment = FactoryGirl.create(
     	:homework_assignment, 
@@ -91,14 +92,9 @@ RSpec.describe Student::SubmissionsController, type: :controller do
 
 	# POST create
 	describe "POST create" do 
-		it "makes sure student gets error message if he/she tries to submit past assignment due date" do 
-			post :create, :student_id => @student.id, :submission => {:homework_assignment_id=> @homework_assignment_overdue.id, :content => 'De Brie flew everywhere'}
-			expect(flash[:error]).to eq "<ul><li>Created at This assignment is past due</li></ul>"
-		end
-
 		it "makes sure that a student cannot make a submission for an assignment that doesnt belong to them" do 
 			post :create, :student_id => @student.id, :submission => {:homework_assignment_id=> @homework_assignment2.id, :content => 'No German food'}
-			expect(flash[:error]).to eq "<ul><li>You are not permitted to submit for this</li></ul>"
+			expect(flash[:error]).to eq "You are not permitted to submit for this"
 		end
 
 		it "makes sure student is able to make a submission" do 

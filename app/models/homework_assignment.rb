@@ -1,9 +1,12 @@
 class HomeworkAssignment < ApplicationRecord
+
+	attr_accessor :skip_date_validation
+	
 	belongs_to :user
 	belongs_to :homework
 	has_many :submissions
 	validates :user_id, presence: true
-	# validate :not_already_past_due
+	validate :not_already_past_due, unless: :skip_date_validation
 	validates :user_id, uniqueness: {scope: :homework_id}
 	default_scope { order(created_at: :desc) }
 

@@ -30,11 +30,7 @@ class ApplicationController < ActionController::Base
   end
 
   def populate_errors(errors)
-    html = '<ul>'
-    errors.each do |err|
-      html += "<li>#{err}</li>"
-    end
-    html += '</ul>'
+    html = errors.join(',')
     flash[:error] = html 
   end
 

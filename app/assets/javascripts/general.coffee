@@ -42,10 +42,13 @@ $(document).on 'turbolinks:load',->
 				beforeSend: ->
 					$('.assignment_container').html('reloading...')
 				error: (jqXHR, textStatus, errorThrown) -> 
-						alert(textStatus)
 				success: (data, textStatus, jqXHR) -> 
-						$('.search_box').trigger('keyup')
-						$('.assignment_container').html(data)
+							$('.search_box').trigger('keyup')
+							$('.assignment_container').html(data)
+							setTimeout(fadeOutMessage, 1000)						
 						true	
 
+	fadeOutMessage = () -> 
+			$('.update-box-sub').fadeOut('2000')
+	setTimeout(fadeOutMessage, 1000)						
 	return undefined		

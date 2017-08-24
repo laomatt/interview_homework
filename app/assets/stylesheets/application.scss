@@ -22,8 +22,17 @@
     font-size: 14px;
     font-weight: bold;
     border-radius: 10px;
+    padding-left: 2%;
+    padding-right: 5%;
+    position: relative;
+    float: right;
     display: none;
 }
+
+.update-box {
+    float: right;
+}
+
 
 %list_module {
     padding: 2px;

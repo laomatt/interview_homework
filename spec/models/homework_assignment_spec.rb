@@ -30,13 +30,16 @@ RSpec.describe HomeworkAssignment, type: :model do
 			due_date: Date.today + 3
 			)
 
-		@homework_assignment_past_due = FactoryGirl.create(
+		@homework_assignment_past_due = FactoryGirl.build(
 			:homework_assignment,
 			user_id: @student3.id,
 			homework_id: @homework.id,
 		 	assigned_by: @teacher3.id,
 			due_date: Date.today - 3
 			)
+
+		@homework_assignment_past_due.skip_date_validation = true
+		@homework_assignment_past_due.save
 
 	end
 
@@ -51,6 +54,17 @@ RSpec.describe HomeworkAssignment, type: :model do
 
   		expect(@homework_assignment_multiple.save).to eq false
   		expect(@homework_assignment_multiple.errors.full_messages).to eq ["User has already been taken"]
+  	end
+
+  	it "makes sure that teacher cannot assign over due assignment" do
+  		@homework_assignment_overdue = HomeworkAssignment.new(
+  					user_id: @student3.id,
+						homework_id: @homework.id,
+					 	assigned_by: @teacher2.id,
+						due_date: Date.today - 3
+  			)
+  		expect(@homework_assignment_overdue.save).to eq false
+  		expect(@homework_assignment_overdue.errors.full_messages).to eq ["Due date This date that is already past due", "User has already been taken"]
   	end
 
 		it 'validates for user_id presence' do 

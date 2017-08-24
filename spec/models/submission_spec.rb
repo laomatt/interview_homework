@@ -32,12 +32,15 @@ RSpec.describe Submission, type: :model do
 			due_date: Date.today + 3
 			)
 
-		@homework_assignment_overdue = FactoryGirl.create(
+		@homework_assignment_overdue = FactoryGirl.build(
 			:homework_assignment, 
 			user_id: @student3.id, 
 			homework_id: @homework.id, 
 			due_date: Date.today - 3
 			)
+		
+		@homework_assignment_overdue.skip_date_validation = true
+		@homework_assignment_overdue.save
 
 		@submission = Submission.new(
 			:homework_assignment_id => @homework_assignment.id, 
