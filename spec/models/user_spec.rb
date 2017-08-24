@@ -48,9 +48,15 @@ RSpec.describe User, type: :model do
 
 	context 'validations' do
 		it 'makes sure there is a username and role' do 
+			user = User.new(:username => nil, :role => 'student')
+			expect(user.save).to be false
+			user = User.new(:username => 'Falcon', :role => nil)
+			expect(user.save).to be false
 		end
 
 		it 'make sure the username is uniq' do 
+			user = User.new(:username => 'student', :role => 'student')
+			expect(user.save).to be false
 		end
 
 	end
