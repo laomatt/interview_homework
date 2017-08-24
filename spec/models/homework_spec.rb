@@ -51,8 +51,6 @@ RSpec.describe Homework, type: :model do
 		)
 
 
-		# homework_assignment_id: integer, scorer_id: integer, content: text, score: float,
-
 		@homework_assignment2 = FactoryGirl.create(
 			:homework_assignment, 
 			user_id: @student2.id, 
@@ -69,6 +67,7 @@ RSpec.describe Homework, type: :model do
 		end
 
 		it 'returns a boolean true if there are unscored submissions' do 
+
 			@submission2 = FactoryGirl.create(
 				:submission,
 				homework_assignment_id: @homework_assignment.id,
@@ -76,7 +75,8 @@ RSpec.describe Homework, type: :model do
 				content: "XXL husky again?",
 			)
 
-			# expect(@homework.unscored_submissions).to eq true
+			expect(@homework2.unscored_submissions?).to eq false
+			expect(@homework.unscored_submissions?).to eq true
 		end
 
 	end

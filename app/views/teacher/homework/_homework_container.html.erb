@@ -4,8 +4,10 @@
 				<%= hw.title %>
 			</div>
 			<div class="col-md-3">
+				<%= hw.high_score %>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-3"  style="background-color: <%=  hw.unscored_submissions? ? 'red' : 'transparent' ; %>">
+				<%= hw.submissions.select { |e| e.score.nil? }.length  %>
 			</div>
 			<div class="col-md-3">
 				<a href="#" class='sub-drop-down btn btn-primary btn-sm' model='HomeworkAssignment' data-target='submission_box' field="homework_id" field_id='<%= hw.id %>' grab_point='<%= grab_teacher_index_path %>' partial='teacher/homework/assignments_container' data-id="<%=hw.id%>">view assignments</a>

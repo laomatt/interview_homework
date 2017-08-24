@@ -16,4 +16,8 @@ class Homework < ApplicationRecord
 	def high_score
 		submissions.select{|e| !e.score.nil? }.map{|e| e.score}.max
 	end
+
+	def unscored_submissions?
+		submissions.any? { |e| e.score.nil? }
+	end
 end
