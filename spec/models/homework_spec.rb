@@ -67,6 +67,18 @@ RSpec.describe Homework, type: :model do
 			expect(@homework.high_score).to eq 90
 			expect(@homework2.high_score).to eq nil
 		end
+
+		it 'returns a boolean true if there are unscored submissions' do 
+			@submission2 = FactoryGirl.create(
+				:submission,
+				homework_assignment_id: @homework_assignment.id,
+				scorer_id: @teacher.id,
+				content: "XXL husky again?",
+			)
+
+			# expect(@homework.unscored_submissions).to eq true
+		end
+
 	end
 
 	after(:each) do 
