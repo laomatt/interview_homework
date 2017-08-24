@@ -46,7 +46,12 @@ class Teacher::HomeworkController < TeacherController
 	end
 
 	def set_homework
-		@homework = current_user.homeworks.find(params[:id])
+		if @teacher.has_homework?(params[:id])
+			@homework = current_user.homeworks.find(params[:id])
+		else
+			flash[:error] = 'You are not authorized to view that homework'
+			redirect_to login_url
+		end
 	end
 
 

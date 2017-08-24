@@ -78,8 +78,9 @@ RSpec.describe Teacher::HomeworkController, type: :controller do
       expect(response).to render_template('show')
     end
 
-    it "Should redirect user if the assignment shown does not belong to the user" do 
+    it "Should redirect user and flash error if the assignment shown does not belong to the user" do 
       get :show, :teacher_id => @teacher2.id, :id => @homework.id
+      expect(flash[:error]).to eq 'Unauthorized to do that'
       expect(response.redirect?).to be true
     end
   end

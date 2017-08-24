@@ -68,6 +68,15 @@ RSpec.describe User, type: :model do
 			end
 		end
 
+		it 'returns true if user has homework' do 
+				expect(@teacher.has_homework?(@homework.id)).to eq true
+
+		end
+
+		it 'returns false if user does not have homework' do 
+				expect(@teacher2.has_homework?(@homework.id)).to eq false
+		end
+
 		it 'provides appropriate assign button text based on homework' do
 			expect(@student.assign_button(@homework.id)).to eq 'Assigned'
 			expect(@student3.assign_button(@homework.id)).to eq 'Assign'

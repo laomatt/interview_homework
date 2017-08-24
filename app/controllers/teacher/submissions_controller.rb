@@ -32,6 +32,8 @@ class Teacher::SubmissionsController < TeacherController
 			if params[:submission][:content]
 				flash[:error] = "You may not change student content"
 			end
+		else
+			flash[:error] = "You may not grade this assignment"
 		end
 
 		redirect_to :back

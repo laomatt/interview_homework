@@ -25,6 +25,10 @@ class User < ActiveRecord::Base
   	role == 'student'
   end
 
+  def has_homework?(homework_id)
+    homeworks.any? { |e| e.id == homework_id.to_i }
+  end
+
   def assign_button(homework_id)
     if teacher?
       "N/A"
@@ -33,6 +37,5 @@ class User < ActiveRecord::Base
     else
       "Assign"  
     end
-    
   end
 end
