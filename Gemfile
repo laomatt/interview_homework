@@ -3,8 +3,6 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails' #, '4.2.1'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -40,6 +38,8 @@ group :development, :test do
   gem 'byebug'
   gem 'rails-controller-testing'
 
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
   gem 'database_cleaner'
   # Access an IRB console on exception pages or by using <%= console %> in views
   # gem 'web-console', '~> 2.0'
@@ -49,6 +49,11 @@ group :development, :test do
   gem 'faker'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
+end
+
+group :production do
+  # Use postgres as the database for Active Record on production
+  gem 'pg'
 end
 
 gem 'bootstrap-sass'
