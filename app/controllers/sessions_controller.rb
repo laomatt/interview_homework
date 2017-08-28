@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       user = User.new(user_params)
       if user.save
         session[:user_id] = user.id
-        redirect_to welcome_index
+        redirect_to root_url
       else
         render :json => { :success => false, :message => user.errors.full_messages }
       end
