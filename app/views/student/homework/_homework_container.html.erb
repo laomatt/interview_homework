@@ -1,7 +1,7 @@
 	<div class="container hw_container" style='background-color: <%= hw.high_score_color %>'>
 		<div class="row hw_container" style='background-color: <%= hw.high_score_color %>'>
 			<div class="col-md-3">
-				<%= hw.homework.title %>
+				<%= hw.homework.try(:title) %>
 			</div>
 			<div class="col-md-3">
 				<%= hw.submissions.select{|e| e.score }.sort_by {|e| e.score}.last.try(:score) %>
