@@ -4,9 +4,9 @@ class Teacher::HomeworkController < TeacherController
 
 	def index
 		if params[:page]
-			@homeworks = @teacher.homeworks.paginate(:page => params[:page], :per_page => 10)
+			@homeworks = @teacher.homeworks.paginate(:page => params[:page], :per_page => 40)
 		else
-			@homeworks = @teacher.homeworks.paginate(:page => 1, :per_page => 10)
+			@homeworks = @teacher.homeworks.paginate(:page => 1, :per_page => 40)
 		end
 	end
 
